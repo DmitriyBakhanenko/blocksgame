@@ -6,8 +6,8 @@ let gameStarted = false;
 let clickcount = 0;
 let level = 1;
 
-$(document).keypress(function(e) {
-  if (e.key) {
+$(document)
+  .on("click", function() {
     if (gameStarted === false) {
       $("p").addClass("hidden");
       for (i = 0; i < 4; i++) {
@@ -19,8 +19,25 @@ $(document).keypress(function(e) {
         nextSequence();
       }, 1000);
     }
-  }
-});
+  })
+  .keypress(function(e) {
+    if (e.key) {
+      if (gameStarted === false) {
+        $("p").addClass("hidden");
+        for (i = 0; i < 4; i++) {
+          $(".btn").removeClass("hidden");
+        }
+        $("h1").text(`Уровень ${level}`);
+        gameStarted = true;
+        setTimeout(function() {
+          nextSequence();
+        }, 1000);
+      }
+    }
+  })
+  .mousedown(function(e) {
+    e.preventDefault();
+  });
 
 $(".btn")
   .on("click", handler)
